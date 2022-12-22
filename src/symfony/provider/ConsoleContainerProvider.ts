@@ -27,7 +27,7 @@ export class ConsoleContainerProvider implements ContainerProviderInterface {
     }
 
     provideServiceDefinitions(): Promise<ServiceDefinition[]> {
-        return this._executeCommand<ServiceDefinition>(["debug:container", "--show-private"], (obj) => {
+        return this._executeCommand<ServiceDefinition>(["debug:container"], (obj) => {
             let result: ServiceDefinition[] = []
             let collection: Object = {}
 
@@ -98,7 +98,7 @@ export class ConsoleContainerProvider implements ContainerProviderInterface {
                     let shellExecutable: string | boolean = false
                     if (shellExecutable = this._getShellExecutable()) {
                         executable = this._getShellCommand()
-                        options = { shell: shellExecutable }
+                        options = { shell: shellExecutable, cwd: infos.cwd }
                     }
 
                     let process = spawn(executable, args, options)
